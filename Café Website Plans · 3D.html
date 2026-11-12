@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Café Website Plans · 3D</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#130c07;--bg2:#2a1708;--ink:#fbeedd;--mute:#c4a98c;--acc:#ff9a3d;--acc2:#ffd08a;--glass:rgba(40,24,13,.62);--edge:rgba(255,170,80,.45);color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f3e6d1;--bg2:#e3c9a3;--ink:#2a1a10;--mute:#6e5a49;--acc:#b5470f;--acc2:#8a3207;--glass:rgba(255,248,236,.7);--edge:rgba(120,60,20,.4);color-scheme:light}}
+:root[data-theme="light"]{--bg:#f3e6d1;--bg2:#e3c9a3;--ink:#2a1a10;--mute:#6e5a49;--acc:#b5470f;--acc2:#8a3207;--glass:rgba(255,248,236,.7);--edge:rgba(120,60,20,.4);color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:"DM Sans",system-ui,sans-serif;background:radial-gradient(1200px 700px at 50% 20%,var(--bg2),var(--bg));background-attachment:fixed;overflow-x:hidden}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:44px 18px 60px}
+h1{font-family:"Playfair Display",Georgia,serif;font-size:clamp(2.2rem,8vw,4.4rem);line-height:1.02;margin:0 0 12px;text-align:center;text-shadow:0 6px 30px rgba(0,0,0,.35)}
+h1 em{font-style:normal;color:var(--acc)}
+.lead{text-align:center;color:var(--mute);max-width:520px;margin:0 auto 26px;font-size:1.05rem}
+.start{max-width:520px;margin:0 auto 46px;text-align:center;padding:14px 18px;border:1px dashed var(--edge);border-radius:14px;background:var(--glass);backdrop-filter:blur(8px)}
+.start b{font-family:"Playfair Display",Georgia,serif;font-size:1.7rem;color:var(--acc)}
+.stage{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:40px;perspective:1100px}
+.float{animation:fl 6s ease-in-out infinite}
+.float:nth-child(2){animation-delay:-3s}
+@keyframes fl{50%{transform:translateY(-12px)}}
+.card{position:relative;transform-style:preserve-3d;transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .12s ease-out;border-radius:24px;padding:30px 26px 26px;background:var(--glass);backdrop-filter:blur(14px);border:1px solid var(--edge);box-shadow:0 40px 70px -20px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.04) inset}
+.card.hot{box-shadow:0 40px 90px -20px rgba(255,140,40,.45),0 0 40px rgba(255,150,50,.2)}
+.card:before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(260px circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.22),transparent 60%)}
+.card>*{transform:translateZ(36px)}
+.card h2{font-family:"Playfair Display",Georgia,serif;margin:0;font-size:1.7rem;transform:translateZ(60px)}
+.sub{color:var(--mute);font-size:.9rem;margin:2px 0 8px}
+.amt{font-family:"Playfair Display",Georgia,serif;font-size:3.4rem;font-weight:800;color:var(--acc);line-height:1;transform:translateZ(90px);text-shadow:0 10px 24px rgba(255,140,40,.35)}
+.amt small{font-family:"DM Sans",sans-serif;font-size:1rem;font-weight:400;color:var(--mute)}
+ul{list-style:none;margin:18px 0 22px;padding:0}
+li{padding:7px 0;border-bottom:1px solid rgba(255,190,120,.14);font-size:.96rem}
+li:before{content:"+ ";color:var(--acc);font-weight:700}
+li.off{opacity:.45}
+li.off:before{content:"– ";color:var(--mute)}
+.badge{position:absolute;top:-14px;right:20px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#2a1200;font-weight:700;font-size:.78rem;padding:6px 14px;border-radius:99px;transform:translateZ(110px);box-shadow:0 10px 22px rgba(255,140,40,.4)}
+a.btn{display:block;text-align:center;padding:14px;border-radius:14px;text-decoration:none;font-weight:700;color:#2a1200;background:linear-gradient(135deg,var(--acc),var(--acc2));box-shadow:0 14px 30px -8px rgba(255,140,40,.55);transform:translateZ(70px)}
+a.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--edge);box-shadow:none}
+.contact{text-align:center;margin-top:48px;color:var(--mute);font-size:.92rem}
+.contact a{color:var(--acc);text-decoration:none;font-weight:700}
+@media (prefers-reduced-motion:reduce){.float{animation:none}}
+</style>
+</head>
+<body>
+<canvas id="gl"></canvas>
+<main>
+<h1>Your café, <em>online</em> and impossible to ignore.</h1>
+<p class="lead">Menu, location and WhatsApp orders on one fast website. Move your finger or mouse over the cards.</p>
+
+<div class="start"><b>₹99</b> to begin · fully refundable<br><span style="color:var(--mute);font-size:.9rem">Paid before I start. Returned (or taken off your first bill) when your site goes live.</span></div>
+
+<div class="stage">
+<div class="float"><div class="card">
+<h2>Monthly</h2><div class="sub">Pay as you go</div>
+<div class="amt">₹399<small> /month</small></div>
+<ul>
+<li>Website upkeep</li>
+<li>Google search boost</li>
+<li>Monthly traffic report</li>
+<li>2 menu changes a month</li>
+<li class="off">Domain and hosting</li>
+<li class="off">QR menu for tables</li>
+</ul>
+<a class="btn ghost wa" data-plan="Monthly (₹399/month)" href="#">Start monthly</a>
+</div></div>
+
+<div class="float"><div class="card hot">
+<span class="badge">Saves ₹2,288</span>
+<h2>Yearly</h2><div class="sub">Everything covered</div>
+<div class="amt">₹2,500<small> /year</small></div>
+<ul>
+<li>Domain and hosting included</li>
+<li>Search boost and traffic reports</li>
+<li>Unlimited menu changes</li>
+<li>QR menu for tables</li>
+<li>WhatsApp order button</li>
+<li>Google Maps and timings</li>
+</ul>
+<a class="btn wa" data-plan="Yearly (₹2,500/year)" href="#">Start yearly</a>
+</div></div>
+</div>
+
+<p class="contact">Questions? <a href="tel:+919472975982">+91 94729 75982</a> · <a href="mailto:gaurav9709716@gmail.com">gaurav9709716@gmail.com</a></p>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+var WA='919472975982';
+document.querySelectorAll('.wa').forEach(function(a){a.href='https://wa.me/'+WA+'?text='+encodeURIComponent('Hi, I’d like the '+a.dataset.plan+' website plan for my café.')});
+
+/* card tilt + glare */
+document.querySelectorAll('.card').forEach(function(c){
+  function mv(x,y){var r=c.getBoundingClientRect(),px=(x-r.left)/r.width,py=(y-r.top)/r.height;
+    c.style.setProperty('--ry',((px-.5)*28)+'deg');c.style.setProperty('--rx',((.5-py)*28)+'deg');
+    c.style.setProperty('--gx',(px*100)+'%');c.style.setProperty('--gy',(py*100)+'%')}
+  function rs(){c.style.setProperty('--rx','0deg');c.style.setProperty('--ry','0deg')}
+  c.addEventListener('mousemove',function(e){mv(e.clientX,e.clientY)});
+  c.addEventListener('touchmove',function(e){mv(e.touches[0].clientX,e.touches[0].clientY)},{passive:true});
+  c.addEventListener('mouseleave',rs);c.addEventListener('touchend',rs);
+});
+
+/* floating coffee beans */
+try{
+  var cv=document.getElementById('gl');
+  var renderer=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+  var scene=new THREE.Scene();
+  var cam=new THREE.PerspectiveCamera(55,1,.1,100);cam.position.z=9;
+  scene.add(new THREE.AmbientLight(0xffe2c0,.55));
+  var d=new THREE.DirectionalLight(0xffd9a8,1.1);d.position.set(4,6,6);scene.add(d);
+  var p=new THREE.PointLight(0xff8a2a,1.4,40);p.position.set(-5,-2,4);scene.add(p);
+  var calm=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  /* real bean shape: oval body, flat top, wavy centre groove */
+  var beanGeo=new THREE.SphereGeometry(1,64,48);
+  (function(){
+    var pos=beanGeo.attributes.position,cols=[];
+    for(var k=0;k<pos.count;k++){
+      var x=pos.getX(k),y=pos.getY(k),z=pos.getZ(k);
+      var X=x*.62,Y=y*(y>0?.3:.42),Z=z*.44;
+      var c=.14*Math.sin(x*3.4);
+      var gw=Math.exp(-Math.pow((z-c)/.13,2))*(1-Math.pow(Math.abs(x),4));
+      var top=Math.max(0,y);
+      Y-=gw*.2*top;
+      pos.setXYZ(k,X,Y,Z);
+      var sh=1-.6*gw*top;
+      cols.push(sh,sh,sh);
+    }
+    beanGeo.setAttribute('color',new THREE.Float32BufferAttribute(cols,3));
+    beanGeo.computeVertexNormals();
+  })();
+  var tones=[0x7b4524,0x5c3017,0x8c5a30];
+  var mats=tones.map(function(c){return new THREE.MeshStandardMaterial({color:c,vertexColors:true,roughness:.38,metalness:.05})});
+  var beans=[];
+  for(var i=0;i<46;i++){
+    var g=new THREE.Group();
+    var b=new THREE.Mesh(beanGeo,mats[i%3]);g.add(b);
+    var s=.8+Math.random()*1.0;g.scale.set(s,s,s);
+    g.position.set((Math.random()-.5)*20,(Math.random()-.5)*13,-7+Math.random()*9);
+    g.rotation.set(Math.random()*6,Math.random()*6,Math.random()*6);
+    g.userData={vx:(Math.random()-.5)*.012,vy:(Math.random()-.5)*.012,sp:.004+Math.random()*.012,ph:Math.random()*6,y0:g.position.y};
+    scene.add(g);beans.push(g);
+  }
+  var mx=0,my=0,sy=0;
+  addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+  addEventListener('scroll',function(){sy=scrollY/Math.max(1,document.body.scrollHeight-innerHeight)});
+  function size(){var w=innerWidth,h=innerHeight;renderer.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix()}
+  addEventListener('resize',size);size();
+  var t=0;
+  (function loop(){
+    requestAnimationFrame(loop);t+=.01;
+    for(var i=0;i<beans.length;i++){var o=beans[i],u=o.userData;
+      if(!calm){o.rotation.x+=u.sp;o.rotation.y+=u.sp*1.3;o.position.y=u.y0+Math.sin(t+u.ph)*.5;}}
+    cam.position.x+=((mx*3)-cam.position.x)*.05;
+    cam.position.y+=((-my*2-sy*3)-cam.position.y)*.05;
+    cam.lookAt(0,0,0);
+    renderer.render(scene,cam);
+  })();
+}catch(err){}
+</script>
+</body>
+</html>
